@@ -33,11 +33,6 @@
   font-weight: 200;
 }
 
-
-
-
-
-
 html {
   box-sizing: border-box;
 }
@@ -76,6 +71,13 @@ body {
   background-attachment: fixed;
 }
 
+.body-no-scroll {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
 .container {
   max-width: auto;
   margin: 0 auto;
@@ -108,11 +110,90 @@ body {
     justify-content: space-between;
   }
 
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #000617;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: all 0.4s ease;
+    padding: 20px;
+    
+    &.active {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    
+    &__header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 40px 15px;
+      border-bottom: 2px solid #a8a8a8;
+      @include respond-to("sm") {
+        padding: 15px 15px;
+      }
+    }
+    
+    &__logo {
+      img {
+        height: 40px;
+        width: auto;
+      }
+    }
+    
+    &__nav {
+      width: 100%;
+      margin-top: 80px;
+    }
+    
+    &__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      
+      li {
+        a {
+          color: #f1ecda;
+          font-size: 15px;
+          text-decoration: none;
+          transition: color 0.3s;
+          text-transform: uppercase;
+          
+          &:hover {
+            color: #ffd700;
+          }
+        }
+      }
+    }
+  }
+
   &__logo-link {
     img {
       max-width: 204px;
       width: 100%;
+      padding: 25px 0px 20px 30px;
       transition: transform 0.3s ease;
+      @include respond-to("sm") {
+        max-width: 120px;
+        padding: 0;
+      }
     }
   }
 
@@ -120,6 +201,9 @@ body {
     display: flex;
     align-items: center;
     gap: 30px;
+    @include respond-to("sm") {
+      gap: 15px;
+    }
   }
 
   &__navigation-list {
@@ -145,6 +229,10 @@ body {
     }
   }
 
+  &__offer {
+    z-index: 1001;
+  }
+
   &__offer-button {
     display: flex;
     align-items: center;
@@ -161,6 +249,7 @@ body {
     overflow: hidden;
     opacity: 0.7;
     border: none;
+    
 
     &:hover {
       opacity: 1;
@@ -170,6 +259,12 @@ body {
         color: #000;
       }
     }
+    
+
+    @include respond-to("sm") {
+      width: 120px;
+    }
+
   }
 
   &__offer-button--text {
@@ -183,17 +278,71 @@ body {
     &:hover {
       color: #000;
     }
+
+    @include respond-to("sm") {
+      font-size: 11px;
+    }
   }
 
-  &__hamburger-menu {
+  .burger-menu {
     display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 1001;
+    position: relative;
+
+    &__line {
+      display: block;
+      width: 100%;
+      height: 3px;
+      background: #fff;
+      transition: all 0.3s ease;
+      transform-origin: center;
+
+      &:nth-child(1) {
+        transform: translateY(0) rotate(0);
+      }
+      &:nth-child(2) {
+        opacity: 1;
+      }
+      &:nth-child(3) {
+        transform: translateY(0) rotate(0);
+      }
+    }
+
+    &[aria-expanded="true"] {
+      .burger-menu__line {
+        &:nth-child(1) {
+          transform: translateY(7.5px) rotate(45deg);
+        }
+        &:nth-child(2) {
+          opacity: 0;
+        }
+        &:nth-child(3) {
+          transform: translateY(-9.5px) rotate(-45deg);
+        }
+      }
+    }
+
+    @include respond-to("xl") {
+      display: flex;
+    }
+
+    
   }
 }
 
 .language-dropdown {
   position: relative;
   display: inline-block;
-  @include respond-to("xl") {
+
+  @include respond-to("lg") {
     display: none;
   }
 
@@ -443,6 +592,7 @@ body {
       margin: -5rem 0;
     }
   }
+
   &__title {
     color: #b66222;
     font-family: PPPangaia-Bold, sans-serif;
@@ -452,6 +602,7 @@ body {
     background: transparent;
     margin-bottom: 10px;
   }
+
   &__item {
     display: flex;
     align-items: center;
@@ -460,14 +611,17 @@ body {
     border: 1px solid #b66222;
     border-radius: 10px;
     padding: 10px 20px;
+
     @include respond-to("sm") {
       flex-wrap: wrap;
     }
   }
+
   &__link {
     position: relative;
     display: inline-block;
   }
+
   &__logo {
     transition: opacity 0.3s ease;
   }
@@ -487,4 +641,3 @@ body {
 .video-hero__link:hover .video-hero__logo:last-child {
   opacity: 1;
 }
-
