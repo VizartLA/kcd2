@@ -15,9 +15,9 @@ const ttf2woff2 = require('gulp-ttf2woff2');
 const include = require('gulp-include');
 const plumber = require('gulp-plumber');
 const sourcemaps = require('gulp-sourcemaps');
-const svgSprite = require('gulp-svg-sprite'); // Добавлено
+const svgSprite = require('gulp-svg-sprite'); 
 
-// Убрана дублирующая функция styles
+
 function styles() {
   return src('app/scss/style.scss')
     .pipe(plumber())
